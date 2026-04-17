@@ -1,0 +1,49 @@
+
+1. hide selected column
+    How the customization works now:
+    there is a global hidden column list
+    there is also a per-table hidden column list
+    you can extend both lists easily in:
+    SchemaDefinitionBuilder.java
+
+SETUP
+   /System
+       Users
+       Roles
+       Permissions
+       Hotkeys
+
+   /Store
+       Stores
+       Terminals
+       POS Shift
+
+   /Fiscal (BIR)
+       Taxpayer Profile
+       Store Fiscal Profile
+       Receipt Series
+
+   /Products
+       Products
+       Categories
+       Units
+       Taxes
+       Barcodes
+
+   /Customers
+       Customers
+       Customer Benefits
+
+   /Suppliers
+       Suppliers
+
+   /Inventory
+       /Inventory Status
+       Return Reasons
+
+   Sales
+       /Discount Types
+       Benefit Policies
+
+   /Payments
+       Payment Methods

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stock_on_hand" pageWidth="1190" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1150" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd090598-3301-4aa5-a701-c0d3119b28c9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Base" fontName="SansSerif" fontSize="9"/>
+	<style name="Header" style="Base" mode="Opaque" forecolor="#212529" backcolor="#E9ECEF" isBold="true"/>
+	<style name="GroupHeader" style="Base" mode="Opaque" forecolor="#0B5ED7" backcolor="#DCEBFF" fontSize="10" isBold="true"/>
+	<style name="Title" style="Base" fontSize="16" isBold="true"/>
+	<style name="SubTitle" style="Base" fontSize="10"/>
+	<style name="Detail" style="Base"/>
+	<parameter name="REPORT_TITLE" class="java.lang.String"/>
+	<parameter name="FILTER_TEXT" class="java.lang.String"/>
+	<parameter name="PRINTED_BY" class="java.lang.String"/>
+	<parameter name="PRINTED_AT" class="java.lang.String"/>
+	<field name="categoryName" class="java.lang.String"/>
+	<field name="sku" class="java.lang.String"/>
+	<field name="productName" class="java.lang.String"/>
+	<field name="barcodes" class="java.lang.String"/>
+	<field name="uomCode" class="java.lang.String"/>
+	<field name="onhandQty" class="java.math.BigDecimal"/>
+	<field name="qtySold30Days" class="java.math.BigDecimal"/>
+	<field name="buyingPrice" class="java.math.BigDecimal"/>
+	<field name="sellingPrice" class="java.math.BigDecimal"/>
+	<field name="profitWithoutTaxWithoutDiscount" class="java.math.BigDecimal"/>
+	<field name="profitWithTaxAndDiscount" class="java.math.BigDecimal"/>
+	<field name="markupWithoutTaxWithoutDiscount" class="java.math.BigDecimal"/>
+	<field name="markupWithTaxAndDiscount" class="java.math.BigDecimal"/>
+	<field name="expirySummary" class="java.lang.String"/>
+	<field name="daysToExpireDisplay" class="java.lang.String"/>
+	<variable name="RowEven" class="java.lang.Boolean">
+		<variableExpression><![CDATA[$V{REPORT_COUNT}.intValue() % 2 == 0]]></variableExpression>
+	</variable>
+	<variable name="CategoryRowNo" class="java.lang.Integer" resetType="Group" resetGroup="CategoryGroup" calculation="Count">
+		<variableExpression><![CDATA[$F{sku}]]></variableExpression>
+	</variable>
+	<group name="CategoryGroup">
+		<groupExpression><![CDATA[$F{categoryName} == null || $F{categoryName}.trim().isEmpty() ? "Uncategorized" : $F{categoryName}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="0" width="1150" height="20" backcolor="#DCEBFF" uuid="6b5f8ccf-3f2e-4452-a725-115abe52cbeb"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement style="GroupHeader" x="8" y="2" width="1134" height="16" uuid="324d551c-69db-43d8-8ac6-aae5449cca28"/>
+					<textFieldExpression><![CDATA[$F{categoryName} == null || $F{categoryName}.trim().isEmpty() ? "Uncategorized" : $F{categoryName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="52">
+			<textField>
+				<reportElement style="Title" x="0" y="0" width="700" height="24" uuid="8deb0369-7a73-473b-b16d-f9e779a1a290"/>
+				<textFieldExpression><![CDATA[$P{REPORT_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="0" y="26" width="700" height="16" uuid="344dcd84-0209-4f74-8978-b8aa1f3b6192"/>
+				<textFieldExpression><![CDATA[$P{FILTER_TEXT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="780" y="4" width="370" height="16" uuid="d1161735-e2b1-44a5-a949-3a0b6e9c253c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Printed by: " + $P{PRINTED_BY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="780" y="24" width="370" height="16" uuid="6ba2cfde-b420-401b-8ba7-c547026e6aba"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Printed at: " + $P{PRINTED_AT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="Header" x="0" y="0" width="35" height="24" uuid="ca6c3de6-2677-401b-902e-5d229c69c4f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="35" y="0" width="65" height="24" uuid="33e6a341-2bcb-4c0d-bf4b-cbaf061e29ce"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[SKU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="100" y="0" width="170" height="24" uuid="c7d5e95c-a007-4cfe-bf44-3f631292808c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Product]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="270" y="0" width="110" height="24" uuid="45afb4fc-a19b-489e-a160-33ac1486fc78"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Barcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="380" y="0" width="55" height="24" uuid="a51c3497-064f-439b-a234-aee8fb48ec6f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[UOM.CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="435" y="0" width="60" height="24" uuid="baafbbe4-a5fa-44ea-b2fb-a4e872d7fc5c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Onhand]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="495" y="0" width="65" height="24" uuid="11d7cbdf-2d97-4214-be16-99790b22e794"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Sold 30D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="560" y="0" width="68" height="24" uuid="f73a6d0c-898d-415e-ba9c-af1fdab3b42d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Buying]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="628" y="0" width="68" height="24" uuid="78f40169-3f47-4fcc-9776-6a4df2f818e7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Selling]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="696" y="0" width="88" height="24" uuid="2a8ae9ff-58bf-4ecc-9523-4a117600ed31"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Profit No T/D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="784" y="0" width="88" height="24" uuid="6eab5677-e440-4d3a-9b02-6e2ee4c7c3ab"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Profit W T/D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="872" y="0" width="68" height="24" uuid="d7280971-1df5-4720-beb1-a90c2d4e75de"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Markup % N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="940" y="0" width="68" height="24" uuid="d863ee58-abb9-4b9a-9a2c-3731ade3c0b5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Markup % W]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="1008" y="0" width="100" height="24" uuid="0a974333-c7d6-4030-a0ef-eeef73a39fc1"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Expiry / Remaining]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Header" x="1108" y="0" width="42" height="24" uuid="5b332da8-c087-4667-b07e-924265ce04f2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Days]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="1150" height="20" backcolor="#F2F2F2" uuid="150e59a8-a613-4704-a55c-62899df7f763">
+					<printWhenExpression><![CDATA[$V{RowEven}]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="0" y="2" width="35" height="16" uuid="629cac28-7be0-4949-837f-9f3c4002afd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{CategoryRowNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="35" y="2" width="65" height="16" uuid="ae3daa99-fd30-4f2b-9394-d1c5b53bcc21"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="100" y="2" width="170" height="16" uuid="6d4e63a1-e2ea-43c9-a2e0-9a1770c2715c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="270" y="2" width="110" height="16" uuid="e829c017-bbda-4e3b-8543-cecc2df7288e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{barcodes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="380" y="2" width="55" height="16" uuid="1402dad8-d7fd-4981-b6af-b1addb4669a5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{uomCode}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.####">
+				<reportElement style="Detail" x="435" y="2" width="60" height="16" uuid="c4dd413a-1f1c-45bf-8a02-a558a0c89619"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{onhandQty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.####">
+				<reportElement style="Detail" x="495" y="2" width="65" height="16" uuid="97268dae-da88-4789-b711-c8409a567e2d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qtySold30Days}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="560" y="2" width="68" height="16" uuid="aa19c128-03e6-4d2a-b3ed-c69eb8c00aab"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{buyingPrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="628" y="2" width="68" height="16" uuid="beba88b5-d2d5-4d60-aa2a-9ed1b3a3adf2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sellingPrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="696" y="2" width="88" height="16" uuid="4b4e8726-0d16-4a10-a0a7-7d5df2c64bcb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{profitWithoutTaxWithoutDiscount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="784" y="2" width="88" height="16" uuid="5cb352ba-2c39-4842-96d0-fd27b2f3a3a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{profitWithTaxAndDiscount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="872" y="2" width="68" height="16" uuid="f6a0e55b-e081-4490-9aa2-7b406e99cf55"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{markupWithoutTaxWithoutDiscount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="940" y="2" width="68" height="16" uuid="253978ea-0fd6-4e06-8827-2af3e25d8eed"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{markupWithTaxAndDiscount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Detail" x="1008" y="2" width="100" height="16" uuid="54edc865-5a7c-4482-812c-91dfabf65031"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{expirySummary}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Detail" x="1108" y="2" width="42" height="16" uuid="1f465d50-178b-440a-9ea9-50aaf7571654"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{daysToExpireDisplay}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="18">
+			<textField>
+				<reportElement style="SubTitle" x="1030" y="0" width="120" height="16" uuid="c4a217a1-2af5-4ce0-a9d6-362b21d51095"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

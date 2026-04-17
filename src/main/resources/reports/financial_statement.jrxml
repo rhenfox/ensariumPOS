@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="financial_statement" pageWidth="1220" pageHeight="595" orientation="Landscape" columnWidth="1180" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <parameter name="REPORT_TITLE" class="java.lang.String"/>
+    <parameter name="DATE_FROM" class="java.sql.Date"/>
+    <parameter name="DATE_TO" class="java.sql.Date"/>
+    <parameter name="HEADER_REGISTERED_NAME" class="java.lang.String"/>
+    <parameter name="HEADER_TRADE_NAME" class="java.lang.String"/>
+    <parameter name="HEADER_TIN" class="java.lang.String"/>
+    <parameter name="HEADER_BRANCH_CODE" class="java.lang.String"/>
+    <parameter name="HEADER_BUSINESS_ADDRESS" class="java.lang.String"/>
+    <parameter name="HEADER_PTU_NO" class="java.lang.String"/>
+    <parameter name="HEADER_ATP_NO" class="java.lang.String"/>
+    <parameter name="HEADER_POS_VENDOR" class="java.lang.String"/>
+    <parameter name="PRINTED_BY" class="java.lang.String"/>
+    <parameter name="PRINTED_AT" class="java.lang.String"/>
+    <queryString><![CDATA[
+        SELECT business_date AS BUSINESS_DATE,
+               gross_sales AS GROSS_SALES,
+               sales_discount AS SALES_DISCOUNT,
+               sales_net AS SALES_NET,
+               output_vat AS OUTPUT_VAT,
+               sales_returns AS SALES_RETURNS,
+               net_sales_after_returns AS NET_SALES_AFTER_RETURNS,
+               net_cost_of_goods_sold AS NET_COST_OF_GOODS_SOLD,
+               gross_profit AS GROSS_PROFIT,
+               purchases AS PURCHASES,
+               return_cost_total AS RETURN_COST_TOTAL,
+               damage_total AS DAMAGE_TOTAL,
+               expire_total AS EXPIRE_TOTAL,
+               adjustment_total AS ADJUSTMENT_TOTAL
+        FROM v_financial_statement
+        WHERE business_date BETWEEN $P{DATE_FROM} AND $P{DATE_TO}
+        ORDER BY business_date
+    ]]></queryString>
+    <field name="BUSINESS_DATE" class="java.sql.Date"/>
+    <field name="GROSS_SALES" class="java.math.BigDecimal"/>
+    <field name="SALES_DISCOUNT" class="java.math.BigDecimal"/>
+    <field name="SALES_NET" class="java.math.BigDecimal"/>
+    <field name="OUTPUT_VAT" class="java.math.BigDecimal"/>
+    <field name="SALES_RETURNS" class="java.math.BigDecimal"/>
+    <field name="NET_SALES_AFTER_RETURNS" class="java.math.BigDecimal"/>
+    <field name="NET_COST_OF_GOODS_SOLD" class="java.math.BigDecimal"/>
+    <field name="GROSS_PROFIT" class="java.math.BigDecimal"/>
+    <field name="PURCHASES" class="java.math.BigDecimal"/>
+    <field name="RETURN_COST_TOTAL" class="java.math.BigDecimal"/>
+    <field name="DAMAGE_TOTAL" class="java.math.BigDecimal"/>
+    <field name="EXPIRE_TOTAL" class="java.math.BigDecimal"/>
+    <field name="ADJUSTMENT_TOTAL" class="java.math.BigDecimal"/>
+    <variable name="GROSS_SALES_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{GROSS_SALES}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="SALES_DISCOUNT_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{SALES_DISCOUNT}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="SALES_NET_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{SALES_NET}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="OUTPUT_VAT_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{OUTPUT_VAT}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="SALES_RETURNS_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{SALES_RETURNS}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="NET_SALES_AFTER_RETURNS_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{NET_SALES_AFTER_RETURNS}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="NET_COST_OF_GOODS_SOLD_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{NET_COST_OF_GOODS_SOLD}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="GROSS_PROFIT_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{GROSS_PROFIT}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="PURCHASES_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{PURCHASES}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="RETURN_COST_TOTAL_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{RETURN_COST_TOTAL}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="DAMAGE_TOTAL_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{DAMAGE_TOTAL}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="EXPIRE_TOTAL_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{EXPIRE_TOTAL}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <variable name="ADJUSTMENT_TOTAL_SUM" class="java.math.BigDecimal" calculation="Sum"><variableExpression><![CDATA[$F{ADJUSTMENT_TOTAL}]]></variableExpression><initialValueExpression><![CDATA[java.math.BigDecimal.ZERO]]></initialValueExpression></variable>
+    <title>
+        <band height="92">
+            <textField><reportElement x="0" y="0" width="1180" height="20"/><textElement textAlignment="Center"><font size="14" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{REPORT_TITLE}]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="20" width="1180" height="16"/><textElement textAlignment="Center"><font size="10"/></textElement><textFieldExpression><![CDATA["Period: " + $P{DATE_FROM} + " to " + $P{DATE_TO}]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="38" width="1180" height="16"/><textElement textAlignment="Center"><font size="10" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{HEADER_REGISTERED_NAME} + ($P{HEADER_TRADE_NAME} == null || $P{HEADER_TRADE_NAME}.trim().isEmpty() ? "" : " / " + $P{HEADER_TRADE_NAME})]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="54" width="1180" height="16"/><textElement textAlignment="Center"><font size="9"/></textElement><textFieldExpression><![CDATA["TIN: " + $P{HEADER_TIN} + ($P{HEADER_BRANCH_CODE} == null || $P{HEADER_BRANCH_CODE}.trim().isEmpty() ? "" : "    Branch: " + $P{HEADER_BRANCH_CODE}) + "    Address: " + $P{HEADER_BUSINESS_ADDRESS}]]></textFieldExpression></textField>
+            <textField><reportElement x="0" y="70" width="1180" height="16"/><textElement textAlignment="Center"><font size="9"/></textElement><textFieldExpression><![CDATA["PTU No: " + $P{HEADER_PTU_NO} + "    ATP No: " + $P{HEADER_ATP_NO} + ($P{HEADER_POS_VENDOR} == null || $P{HEADER_POS_VENDOR}.trim().isEmpty() ? "" : "    POS Vendor: " + $P{HEADER_POS_VENDOR})]]></textFieldExpression></textField>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <staticText><reportElement x="0" y="0" width="75" height="20"/><text><![CDATA[Date]]></text></staticText>
+            <staticText><reportElement x="75" y="0" width="85" height="20"/><text><![CDATA[Gross Sales]]></text></staticText>
+            <staticText><reportElement x="160" y="0" width="85" height="20"/><text><![CDATA[Discount]]></text></staticText>
+            <staticText><reportElement x="245" y="0" width="85" height="20"/><text><![CDATA[Sales Net]]></text></staticText>
+            <staticText><reportElement x="330" y="0" width="80" height="20"/><text><![CDATA[Output VAT]]></text></staticText>
+            <staticText><reportElement x="410" y="0" width="85" height="20"/><text><![CDATA[Returns]]></text></staticText>
+            <staticText><reportElement x="495" y="0" width="100" height="20"/><text><![CDATA[Net Sales A/R]]></text></staticText>
+            <staticText><reportElement x="595" y="0" width="100" height="20"/><text><![CDATA[Net COGS]]></text></staticText>
+            <staticText><reportElement x="695" y="0" width="90" height="20"/><text><![CDATA[Gross Profit]]></text></staticText>
+            <staticText><reportElement x="785" y="0" width="85" height="20"/><text><![CDATA[Purchases]]></text></staticText>
+            <staticText><reportElement x="870" y="0" width="85" height="20"/><text><![CDATA[Return Cost]]></text></staticText>
+            <staticText><reportElement x="955" y="0" width="75" height="20"/><text><![CDATA[Damage]]></text></staticText>
+            <staticText><reportElement x="1030" y="0" width="70" height="20"/><text><![CDATA[Expire]]></text></staticText>
+            <staticText><reportElement x="1100" y="0" width="80" height="20"/><text><![CDATA[Adjust]]></text></staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <rectangle>
+                <reportElement x="0" y="0" width="1180" height="20" mode="Opaque" backcolor="#F2F2F2">
+                    <printWhenExpression><![CDATA[Boolean.valueOf($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+                </reportElement>
+                <graphicElement/>
+            </rectangle>
+            <textField pattern="yyyy-MM-dd"><reportElement x="0" y="0" width="75" height="20"/><textFieldExpression><![CDATA[$F{BUSINESS_DATE}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="75" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{GROSS_SALES}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="160" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{SALES_DISCOUNT}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="245" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{SALES_NET}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="330" y="0" width="80" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{OUTPUT_VAT}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="410" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{SALES_RETURNS}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="495" y="0" width="100" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{NET_SALES_AFTER_RETURNS}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="595" y="0" width="100" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{NET_COST_OF_GOODS_SOLD}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="695" y="0" width="90" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{GROSS_PROFIT}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="785" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{PURCHASES}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="870" y="0" width="85" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{RETURN_COST_TOTAL}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="955" y="0" width="75" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{DAMAGE_TOTAL}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="1030" y="0" width="70" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{EXPIRE_TOTAL}]]></textFieldExpression></textField>
+            <textField pattern="#,##0.00"><reportElement x="1100" y="0" width="80" height="20"/><textElement textAlignment="Right"/><textFieldExpression><![CDATA[$F{ADJUSTMENT_TOTAL}]]></textFieldExpression></textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="18">
+            <textField><reportElement x="0" y="0" width="590" height="16"/><textElement><font size="9"/></textElement><textFieldExpression><![CDATA["Printed By: " + $P{PRINTED_BY}]]></textFieldExpression></textField>
+            <textField><reportElement x="590" y="0" width="590" height="16"/><textElement textAlignment="Right"><font size="9"/></textElement><textFieldExpression><![CDATA["Printed At: " + $P{PRINTED_AT}]]></textFieldExpression></textField>
+        </band>
+    </pageFooter>
+
+
+
+    <summary>
+        <band height="96">
+            <line><reportElement x="0" y="0" width="1180" height="1"/></line>
+            <staticText><reportElement x="20" y="6" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Gross Sales:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="200" y="6" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{GROSS_SALES_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="6" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Sales Discount:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="480" y="6" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{SALES_DISCOUNT_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="580" y="6" width="160" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Sales Net:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="740" y="6" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{SALES_NET_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="840" y="6" width="150" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Output VAT:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="990" y="6" width="170" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{OUTPUT_VAT_SUM}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="20" y="28" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Sales Returns:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="200" y="28" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{SALES_RETURNS_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="28" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Net Sales A/R:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="480" y="28" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{NET_SALES_AFTER_RETURNS_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="580" y="28" width="160" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Net COGS:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="740" y="28" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{NET_COST_OF_GOODS_SOLD_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="840" y="28" width="150" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Gross Profit:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="990" y="28" width="170" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{GROSS_PROFIT_SUM}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="20" y="50" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Purchases:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="200" y="50" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{PURCHASES_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="50" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Return Cost:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="480" y="50" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{RETURN_COST_TOTAL_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="580" y="50" width="160" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Damage:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="740" y="50" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{DAMAGE_TOTAL_SUM}]]></textFieldExpression></textField>
+            <staticText><reportElement x="840" y="50" width="150" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Expire:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="990" y="50" width="170" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{EXPIRE_TOTAL_SUM}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="20" y="72" width="180" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><text><![CDATA[Grand Total Adjustment:]]></text></staticText>
+            <textField pattern="#,##0.00"><reportElement x="200" y="72" width="90" height="18"/><textElement textAlignment="Right"><font isBold="true"/></textElement><textFieldExpression><![CDATA[$V{ADJUSTMENT_TOTAL_SUM}]]></textFieldExpression></textField>
+        </band>
+    </summary>
+
+    </jasperReport>
